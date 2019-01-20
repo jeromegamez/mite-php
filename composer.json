@@ -1,0 +1,38 @@
+{
+    "name": "gamez/mite",
+    "description": "Interact with mite (https://mite.yo.lk) from your PHP application.",
+    "keywords": ["mite", "api", "sdk", "time tracking"],
+    "license": "MIT",
+    "homepage": "https://github.com/jeromegamez/mite-php",
+    "authors": [
+        {
+            "name": "Jérôme Gamez",
+            "homepage": "https://github.com/jeromegamez"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "ext-mbstring": "*",
+        "psr/http-client": "^1.0",
+        "psr/http-factory": "^1.0",
+        "psr/http-message": "^1.0"
+    },
+    "require-dev": {
+        "nyholm/psr7": "^1.0",
+        "php-http/guzzle6-adapter": "^2.0",
+        "php-http/curl-client": "dev-issue-41-psr-18 as 2.0"
+    },
+    "suggest": {
+        "guzzlehttp/guzzle": "Allows the usage of the Guzzle Api Client",
+        "psr/http-client-implementation": "Allows the usage of the PSR-18 Api Client",
+        "psr/http-factory-implementation": "Required for the PSR-18 Api Client"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gamez\\Mite\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
