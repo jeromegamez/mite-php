@@ -61,7 +61,7 @@ use Gamez\Mite\Api\GuzzleApiClient;
 $accountName = 'xxx';
 $apiKey = 'xxx';
 
-$apiClient = new GuzzleApiClient($accountName, $apiKey);
+$apiClient = GuzzleApiClient::with($accountName, $apiKey);
 ```
 
 ### Creating a mite API client based on a PSR-18 HTTP Client
@@ -99,7 +99,7 @@ $apiKey = 'xxx';
 $psr17Factory = new Psr17Factory();
 $curlClient = new CurlClient($psr17Factory, $psr17Factory);
 
-$apiClient = new HttpApiClient($accountName, $apiKey, $curlClient, $psr17Factory);
+$apiClient = HttpApiClient::with($accountName, $apiKey, $curlClient, $psr17Factory);
 ```
 
 ### Creating your own mite API client
@@ -143,7 +143,7 @@ For information on which query parameters and field values are allowed, see
 use Gamez\Mite\SimpleApi;
 
 /** @var \Gamez\Mite\Api\ApiClient $apiClient */
-$api = new SimpleApi($apiClient);
+$api = SimpleApi::withApiClient($apiClient);
 
 $customer = $api->createCustomer([
     'name' => 'My new customer',
@@ -209,8 +209,8 @@ use Gamez\Mite\SimpleApi;
 use Gamez\Mite\SimpleTracker;
 
 /** @var \Gamez\Mite\Api\ApiClient $apiClient */
-$api = new SimpleApi($apiClient);
-$tracker = new SimpleTracker($apiClient);
+$api = SimpleApi::withApiClient($apiClient);
+$tracker = SimpleTracker::withApiClient($apiClient);
 
 $sleeping = $api->createTimeEntry(['note' => 'I am sleeping']);
 $working = $api->createTimeEntry(['note' => 'I switch to this now and then']);

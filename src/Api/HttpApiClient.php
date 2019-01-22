@@ -39,19 +39,27 @@ final class HttpApiClient implements ApiClient
      */
     private $defaultHeaders;
 
-    public function __construct(string $accountName, string $apiKey, ClientInterface $client, RequestFactoryInterface $requestFactory, array $options = null)
+    private function __construct()
+    {
+    }
+
+    public static function with(string $accountName, string $apiKey, ClientInterface $client, RequestFactoryInterface $requestFactory, array $options = null): self
     {
         $options = $options ?: [];
         $userAgents = array_filter([$options['User-Agent'] ?? null, self::USER_AGENT]);
 
-        $this->apiHost = "{$accountName}.mite.yo.lk";
-        $this->client = $client;
-        $this->requestFactory = $requestFactory;
-        $this->defaultHeaders = [
+        $that = new self();
+
+        $that->apiHost = "{$accountName}.mite.yo.lk";
+        $that->client = $client;
+        $that->requestFactory = $requestFactory;
+        $that->defaultHeaders = [
             'Accept' => 'application/json',
             'X-MiteApiKey' => $apiKey,
             'User-Agent' => implode(' ', $userAgents),
         ];
+
+        return $that;
     }
 
     public function get(string $endpoint, array $params = null): ResponseInterface

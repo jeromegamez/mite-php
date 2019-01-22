@@ -14,9 +14,16 @@ final class SimpleApi
      */
     private $client;
 
-    public function __construct(ApiClient $apiClient)
+    private function __construct()
     {
-        $this->client = $apiClient;
+    }
+
+    public static function withApiClient(ApiClient $apiClient): self
+    {
+        $that = new self();
+        $that->client = $apiClient;
+
+        return $that;
     }
 
     public function getAccount(): array

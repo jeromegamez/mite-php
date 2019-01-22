@@ -37,18 +37,26 @@ final class GuzzleApiClient implements ApiClient
      */
     private $client;
 
-    public function __construct(string $accountName, string $apiKey, array $options = null, GuzzleClientInterface $client = null)
+    private function __construct()
+    {
+    }
+
+    public static function with(string $accountName, string $apiKey, array $options = null, GuzzleClientInterface $client = null): self
     {
         $options = $options ?: [];
         $userAgents = array_filter([$options['User-Agent'] ?? null, self::USER_AGENT]);
 
-        $this->apiHost = "{$accountName}.mite.yo.lk";
-        $this->defaultHeaders = [
+        $that = new self();
+
+        $that->apiHost = "{$accountName}.mite.yo.lk";
+        $that->defaultHeaders = [
             'Accept' => 'application/json',
             'X-MiteApiKey' => $apiKey,
             'User-Agent' => implode(' ', $userAgents),
         ];
-        $this->client = $client ?: new GuzzleClient();
+        $that->client = $client ?: new GuzzleClient();
+
+        return $that;
     }
 
     public function get(string $endpoint, array $params = null): ResponseInterface

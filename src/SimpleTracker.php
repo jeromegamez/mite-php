@@ -14,9 +14,16 @@ final class SimpleTracker
      */
     private $client;
 
-    public function __construct(ApiClient $client)
+    private function __construct()
     {
-        $this->client = $client;
+    }
+
+    public static function withApiClient(ApiClient $apiClient): self
+    {
+        $that = new self();
+        $that->client = $apiClient;
+
+        return $that;
     }
 
     public function status(): array
