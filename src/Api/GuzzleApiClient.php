@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Gamez\Mite\Api;
 
-use Gamez\Mite\Exception\ApiError;
+use Gamez\Mite\Exception\ApiClientError;
 use Gamez\Mite\Support\JSON;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
@@ -88,18 +88,18 @@ final class GuzzleApiClient implements ApiClient
         try {
             $response = $this->client->send($request);
         } catch (ConnectException $e) {
-            throw ApiError::fromRequestAndReason($e->getRequest(), "Unable to connect to API: {$e->getMessage()}", $e);
+            throw ApiClientError::fromRequestAndReason($e->getRequest(), "Unable to connect to API: {$e->getMessage()}", $e);
         } catch (RequestException $e) {
             if ($response = $e->getResponse()) {
-                throw ApiError::fromRequestAndResponse($e->getRequest(), $response);
+                throw ApiClientError::fromRequestAndResponse($e->getRequest(), $response);
             }
-            throw ApiError::fromRequestAndReason($e->getRequest(), 'The API returned an error');
+            throw ApiClientError::fromRequestAndReason($e->getRequest(), 'The API returned an error');
         } catch (GuzzleException $e) {
-            throw ApiError::fromRequestAndReason($request, 'The API returned an error');
+            throw ApiClientError::fromRequestAndReason($request, 'The API returned an error');
         }
 
         if ($response->getStatusCode() >= 400) {
-            throw ApiError::fromRequestAndResponse($request, $response);
+            throw ApiClientError::fromRequestAndResponse($request, $response);
         }
 
         return $response;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Gamez\Mite\Api;
 
-use Gamez\Mite\Exception\ApiError;
+use Gamez\Mite\Exception\ApiClientError;
 use Gamez\Mite\Exception\InvalidArgument;
 use Gamez\Mite\Mite;
 use Psr\Http\Message\ResponseInterface;
@@ -19,7 +19,7 @@ interface ApiClient
      * @param string $endpoint
      * @param array|null $params
      *
-     * @throws ApiError
+     * @throws ApiClientError
      * @throws InvalidArgument
      *
      * @return ResponseInterface
@@ -30,7 +30,7 @@ interface ApiClient
      * @param string $endpoint
      * @param array|null $data
      *
-     * @throws ApiError
+     * @throws ApiClientError
      * @throws InvalidArgument
      *
      * @return ResponseInterface
@@ -41,7 +41,7 @@ interface ApiClient
      * @param string $endpoint
      * @param array|null $data
      *
-     * @throws ApiError
+     * @throws ApiClientError
      * @throws InvalidArgument
      *
      * @return ResponseInterface
@@ -51,7 +51,7 @@ interface ApiClient
     /**
      * @param string $endpoint
      *
-     * @throws ApiError
+     * @throws ApiClientError
      * @throws InvalidArgument
      *
      * @return ResponseInterface

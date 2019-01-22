@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 use Throwable;
 
-final class ApiError extends RuntimeException implements BackendError
+final class ApiClientError extends RuntimeException implements BackendError
 {
     /**
      * @var RequestInterface

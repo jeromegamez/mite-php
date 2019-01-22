@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Gamez\Mite\Api;
 
-use Gamez\Mite\Exception\ApiError;
+use Gamez\Mite\Exception\ApiClientError;
 use Gamez\Mite\Support\JSON;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
@@ -91,11 +91,11 @@ final class HttpApiClient implements ApiClient
         try {
             $response = $this->client->sendRequest($request);
         } catch (ClientExceptionInterface $e) {
-            throw ApiError::fromRequestAndReason($request, "Unable to send request to send {$method} request to {$endpoint}", $e);
+            throw ApiClientError::fromRequestAndReason($request, "Unable to send request to send {$method} request to {$endpoint}", $e);
         }
 
         if ($response->getStatusCode() >= 400) {
-            throw ApiError::fromRequestAndResponse($request, $response);
+            throw ApiClientError::fromRequestAndResponse($request, $response);
         }
 
         return $response;

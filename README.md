@@ -137,6 +137,7 @@ For information on which query parameters and field values are allowed, see
 
 use Gamez\Mite\SimpleApi;
 
+/** @var \Gamez\Mite\Api\ApiClient $apiClient */
 $api = new SimpleApi($apiClient);
 
 $customer = $api->createCustomer([
@@ -188,17 +189,18 @@ echo 'Workdays per month and user: '.print_r($workdaysPerMonthAndUser, true);
 ### Catching errors
 
 All exceptions thrown by this library implement the `\Gamez\Mite\Exception\MiteException` interface.
-Exceptions thrown while using an API Client will throw a `\Gamez\Mite\Exception\ApiError`.
+Exceptions thrown while using an API Client will throw a `\Gamez\Mite\Exception\ApiClientError`.
 
 ```php
 <?php 
 
-use Gamez\Mite\Exception\ApiError;
+use Gamez\Mite\Exception\ApiClientError;
 use Gamez\Mite\Exception\MiteException;
 
 try {
+    /** @var \Gamez\Mite\Api\ApiClient $apiClient */
     $result = $apiClient->get('nice-try');
-} catch (ApiError $e) {
+} catch (ApiClientError $e) {
     $message = "Something went wrong while accessing {$e->getRequest()->getUri()}";
 
     if ($response = $e->getResponse()) {
