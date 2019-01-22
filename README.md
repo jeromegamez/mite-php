@@ -13,7 +13,8 @@ and for [HTTP clients implementing PSR-18](https://packagist.org/providers/psr/h
   * [Creating your own mite API client](#creating-your-own-mite-api-client)
   * [Caching HTTP requests to the mite API](#caching-http-requests-to-the-mite-api)
 * [Usage](#usage)
-  * [Simple API access](#simple-api-access)
+  * [Simple API](#simple-api)
+  * [Simple Tracker](#simple-tracker)
   * [Catching errors](#catching-errors)
 * [Roadmap](#roadmap)
 
@@ -115,7 +116,7 @@ component for instructions on how to do that.
 
 ## Usage
 
-### Simple API access
+### Simple API
 
 [`Gamez\Mite\SimpleApi`](./src/SimpleApi.php) is the easiest and fastest way to access the data in your 
 mite account. Its methods are named after the [available REST API endpoints](https://mite.yo.lk/en/api/) 
@@ -184,6 +185,39 @@ echo 'Time Entry: '.print_r($timeEntry, true);
 $workdaysPerMonthAndUser = $api->getGroupedTimeEntries($groupBy = ['user'], ['at' => 'this_month']);
 
 echo 'Workdays per month and user: '.print_r($workdaysPerMonthAndUser, true);
+```
+
+### Simple Tracker
+
+[`Gamez\Mite\SimpleTracker`](./src/SimpleTracker.php) allows you to work with mite's time tracker.
+
+**Note:** You can only access the tracker of the currently authenticated user (identified by the used API key).
+It is not possible to modify trackers of other users. 
+
+Each action on the tracker returns an array with information about the tracked time entry, but you don't have
+to inspect the result to know if the action has been successful or not - if an action does not throw an 
+error, it has been successful.
+
+```php
+<?php
+
+use Gamez\Mite\SimpleApi;
+use Gamez\Mite\SimpleTracker;
+
+/** @var \Gamez\Mite\Api\ApiClient $apiClient */
+$api = new SimpleApi($apiClient);
+$tracker = new SimpleTracker($apiClient);
+
+$sleeping = $api->createTimeEntry(['note' => 'I am sleeping']);
+$working = $api->createTimeEntry(['note' => 'I switch to this now and then']);
+
+$tracker->start($sleeping['id']);
+sleep(1); // You don't need this sleep, but the example makes more sense this way
+$tracker->start($working['id']); // This will automatically stop the "sleeping" tracker
+// No sleep this time, we'll just work for zero seconds 
+$tracker->stop($working['id']); // We stopped working!
+
+print_r($tracker->status()); // Sad
 ```
 
 ### Catching errors
