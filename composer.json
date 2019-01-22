@@ -19,8 +19,9 @@
     },
     "require-dev": {
         "nyholm/psr7": "^1.0",
+        "php-http/curl-client": "dev-issue-41-psr-18 as 2.0",
         "php-http/guzzle6-adapter": "^2.0",
-        "php-http/curl-client": "dev-issue-41-psr-18 as 2.0"
+        "symfony/var-dumper": "^4.2"
     },
     "suggest": {
         "guzzlehttp/guzzle": "Allows the usage of the Guzzle Api Client",
