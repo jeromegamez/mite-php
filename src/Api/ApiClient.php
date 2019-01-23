@@ -6,12 +6,11 @@ namespace Gamez\Mite\Api;
 
 use Gamez\Mite\Exception\ApiClientError;
 use Gamez\Mite\Exception\InvalidArgument;
-use Gamez\Mite\Mite;
 use Psr\Http\Message\ResponseInterface;
 
 interface ApiClient
 {
-    public const USER_AGENT = 'gamez/mite/'.Mite::VERSION.' (https://github.com/jeromegamez/mite-php))';
+    public const USER_AGENT = 'gamez/mite (https://github.com/jeromegamez/mite-php))';
 
     /**
      * Perform a HEAD request to an endpoint with optional query parameters.
