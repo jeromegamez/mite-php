@@ -29,7 +29,7 @@ and for [HTTP clients implementing PSR-18](https://packagist.org/providers/psr/h
 
 Please note that the capabilities of the library are limited by the permissions of the used credentials.
 As an example, a user with the role "Time Tracker" can only access data that has been made available 
-to them and is not allowed to create new customers and might.
+to them and is not allowed to create new customers.
  
 If you want to see and do anything, use an account with administrative permissions.
 
