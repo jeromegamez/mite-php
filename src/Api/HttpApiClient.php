@@ -62,6 +62,11 @@ final class HttpApiClient implements ApiClient
         return $that;
     }
 
+    public function head(string $endpoint, array $params = null): ResponseInterface
+    {
+        return $this->request('HEAD', $endpoint, $params);
+    }
+
     public function get(string $endpoint, array $params = null): ResponseInterface
     {
         return $this->request('GET', $endpoint, $params);
@@ -77,9 +82,9 @@ final class HttpApiClient implements ApiClient
         return $this->request('PATCH', $endpoint, $data);
     }
 
-    public function delete(string $endpoint): ResponseInterface
+    public function delete(string $endpoint, array $params = null): ResponseInterface
     {
-        return $this->request('DELETE', $endpoint);
+        return $this->request('DELETE', $endpoint, $params);
     }
 
     private function request(string $method, string $endpoint, array $params = null, array $data = null): ResponseInterface
