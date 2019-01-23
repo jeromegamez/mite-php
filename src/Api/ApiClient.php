@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 
 interface ApiClient
 {
-    public const USER_AGENT = 'gamez/mite (https://github.com/jeromegamez/mite-php))';
+    public const USER_AGENT = 'gamez/mite (https://github.com/jeromegamez/mite-php)';
 
     /**
      * Perform a HEAD request to an endpoint with optional query parameters.
