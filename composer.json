@@ -18,9 +18,9 @@
         "psr/http-message": "^1.0"
     },
     "require-dev": {
+        "guzzlehttp/guzzle": "^6.3",
+        "kriswallsmith/buzz": "^1.0@beta",
         "nyholm/psr7": "^1.0",
-        "php-http/curl-client": "dev-issue-41-psr-18 as 2.0",
-        "php-http/guzzle6-adapter": "^2.0",
         "symfony/var-dumper": "^4.2"
     },
     "suggest": {
