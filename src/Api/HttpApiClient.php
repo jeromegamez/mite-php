@@ -25,6 +25,11 @@ final class HttpApiClient implements ApiClient
     private $apiHost;
 
     /**
+     * @var string
+     */
+    private $apiKey;
+
+    /**
      * @var ClientInterface
      */
     private $client;
@@ -34,30 +39,18 @@ final class HttpApiClient implements ApiClient
      */
     private $requestFactory;
 
-    /**
-     * @var array
-     */
-    private $defaultHeaders;
-
     private function __construct()
     {
     }
 
-    public static function with(string $accountName, string $apiKey, ClientInterface $client, RequestFactoryInterface $requestFactory, array $options = null): self
+    public static function with(string $accountName, string $apiKey, ClientInterface $client, RequestFactoryInterface $requestFactory): self
     {
-        $options = $options ?: [];
-        $userAgents = array_filter([$options['User-Agent'] ?? null, self::USER_AGENT]);
-
         $that = new self();
 
         $that->apiHost = "{$accountName}.mite.yo.lk";
+        $that->apiKey = $apiKey;
         $that->client = $client;
         $that->requestFactory = $requestFactory;
-        $that->defaultHeaders = [
-            'Accept' => 'application/json',
-            'X-MiteApiKey' => $apiKey,
-            'User-Agent' => implode(' ', $userAgents),
-        ];
 
         return $that;
     }
@@ -91,7 +84,11 @@ final class HttpApiClient implements ApiClient
     {
         $url = $this->createUrl($endpoint, $params);
 
-        $headers = $this->defaultHeaders;
+        $headers = [
+            'Accept' => 'application/json',
+            'X-MiteApiKey' => $this->apiKey,
+            'User-Agent' => self::USER_AGENT,
+        ];
 
         $body = '';
         if (!empty($data)) {

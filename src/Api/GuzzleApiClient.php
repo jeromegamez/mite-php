@@ -8,6 +8,7 @@ use Gamez\Mite\Exception\ApiClientError;
 use Gamez\Mite\Support\JSON;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
+use function GuzzleHttp\default_user_agent;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
@@ -28,9 +29,9 @@ final class GuzzleApiClient implements ApiClient
     private $apiHost;
 
     /**
-     * @var array
+     * @var string
      */
-    private $defaultHeaders;
+    private $apiKey;
 
     /**
      * @var GuzzleClientInterface
@@ -41,19 +42,12 @@ final class GuzzleApiClient implements ApiClient
     {
     }
 
-    public static function with(string $accountName, string $apiKey, array $options = null, GuzzleClientInterface $client = null): self
+    public static function with(string $accountName, string $apiKey, GuzzleClientInterface $client = null): self
     {
-        $options = $options ?: [];
-        $userAgents = array_filter([$options['User-Agent'] ?? null, self::USER_AGENT]);
-
         $that = new self();
 
         $that->apiHost = "{$accountName}.mite.yo.lk";
-        $that->defaultHeaders = [
-            'Accept' => 'application/json',
-            'X-MiteApiKey' => $apiKey,
-            'User-Agent' => implode(' ', $userAgents),
-        ];
+        $that->apiKey = $apiKey;
         $that->client = $client ?: new GuzzleClient();
 
         return $that;
@@ -88,7 +82,11 @@ final class GuzzleApiClient implements ApiClient
     {
         $url = $this->createUrl($endpoint, $params);
 
-        $headers = $this->defaultHeaders;
+        $headers = [
+            'Accept' => 'application/json',
+            'X-MiteApiKey' => $this->apiKey,
+            'User-Agent' => implode(' ', [self::USER_AGENT, default_user_agent()]),
+        ];
 
         $body = '';
         if (!empty($data)) {
