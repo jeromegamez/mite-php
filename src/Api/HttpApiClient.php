@@ -65,7 +65,7 @@ final class HttpApiClient implements ApiClient
         return $this->request('GET', $endpoint, $params);
     }
 
-    public function post($endpoint, array $data = null): ResponseInterface
+    public function post(string $endpoint, array $data = null): ResponseInterface
     {
         return $this->request('POST', $endpoint, $data);
     }
