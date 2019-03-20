@@ -73,7 +73,7 @@ library that implements [PSR-17](https://packagist.org/providers/psr/http-factor
 and [PSR-18](https://packagist.org/providers/psr/http-client-implementation).
 
 ```bash
-composer require --dev kriswallsmith/buzz:^1.0@beta nyholm/psr7:^1.0
+composer require kriswallsmith/buzz:^1.0 nyholm/psr7:^1.0
 ```
 
 ```php
