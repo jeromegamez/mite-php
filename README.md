@@ -4,7 +4,7 @@ Interact with [mite](https://mite.yo.lk) from your PHP application.
 
 [![Current version](https://img.shields.io/packagist/v/gamez/mite.svg)](https://packagist.org/packages/gamez/mite)
 [![Supported PHP version](https://img.shields.io/packagist/php-v/gamez/mite.svg)]()
-[![Build Status](https://travis-ci.com/jeromegamez/mite-php.svg?branch=master)](https://travis-ci.com/jeromegamez/mite-php)
+[![Build Status](https://travis-ci.com/jeromegamez/mite-php.svg?branch=main)](https://travis-ci.com/jeromegamez/mite-php)
 
 ---
 

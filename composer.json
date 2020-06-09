@@ -19,7 +19,7 @@
     },
     "require-dev": {
         "guzzlehttp/guzzle": "^6.3",
-        "kriswallsmith/buzz": "^1.0@beta",
+        "kriswallsmith/buzz": "^1.0",
         "nyholm/psr7": "^1.0",
         "symfony/var-dumper": "^4.2"
     },
