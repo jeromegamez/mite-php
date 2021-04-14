@@ -1,7 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.1 - 2021-01-15
 
+* Added support for PHP 8.0
 * The signatures of the following methods have changed
   * `GuzzleApiClient::with(string $accountName, string $apiKey, GuzzleClientInterface $client = null)`
     + Removed the `$options` parameter. If you want to modify the behaviour of the underlying GuzzleHTTP client,
