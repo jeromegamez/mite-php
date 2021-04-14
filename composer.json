@@ -19,10 +19,10 @@
         "psr/http-message": "^1.0"
     },
     "require-dev": {
-        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/guzzle": "^6.3|^7.3",
         "kriswallsmith/buzz": "^1.0",
         "nyholm/psr7": "^1.0",
-        "symfony/var-dumper": "^4.2"
+        "symfony/var-dumper": "^4.4|^5.2"
     },
     "suggest": {
         "guzzlehttp/guzzle": "Allows the usage of the Guzzle Api Client",
