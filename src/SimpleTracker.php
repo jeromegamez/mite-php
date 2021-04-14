@@ -26,6 +26,9 @@ final class SimpleTracker
         return $that;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function status(): array
     {
         $response = $this->client->get('tracker');
@@ -34,6 +37,11 @@ final class SimpleTracker
         return current($data);
     }
 
+    /**
+     * @param int|numeric-string $id
+     *
+     * @return array<string, mixed>
+     */
     public function start($id): array
     {
         $response = $this->client->patch("tracker/{$id}");
@@ -42,6 +50,11 @@ final class SimpleTracker
         return current($data);
     }
 
+    /**
+     * @param int|numeric-string $id
+     *
+     * @return array<string, mixed>
+     */
     public function stop($id): array
     {
         $response = $this->client->delete("tracker/{$id}");

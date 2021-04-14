@@ -12,6 +12,7 @@
     ],
     "require": {
         "php": ">=7.2",
+        "ext-json": "*",
         "ext-mbstring": "*",
         "psr/http-client": "^1.0",
         "psr/http-factory": "^1.0",

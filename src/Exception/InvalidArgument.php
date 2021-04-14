@@ -8,7 +8,7 @@ use Throwable;
 
 final class InvalidArgument extends \InvalidArgumentException implements MiteException
 {
-    public static function because($reason, Throwable $previous = null): self
+    public static function because(string $reason, ?Throwable $previous = null): self
     {
         $code = $previous ? $previous->getCode() : 0;
 
