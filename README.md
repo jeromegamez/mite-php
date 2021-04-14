@@ -49,12 +49,12 @@ composer require gamez/mite
 ### Creating an API client based on Guzzle
 
 ```bash
-composer require guzzlehttp/guzzle:^6.3
+composer require guzzlehttp/guzzle:^7.3
 ``` 
 
 ```php
 <?php
-// a file in the same directory in which you perfomed the composer command(s)
+// a file in the same directory in which you performed the composer command(s)
 require 'vendor/autoload.php';
 
 use Gamez\Mite\Api\GuzzleApiClient;
@@ -78,7 +78,7 @@ composer require kriswallsmith/buzz:^1.0 nyholm/psr7:^1.0
 
 ```php
 <?php
-// a file in the same directory in which you perfomed the composer command(s)
+// a file in the same directory in which you performed the composer command(s)
 require 'vendor/autoload.php';
 
 use Buzz\Client\FileGetContents;
@@ -91,7 +91,7 @@ $apiKey = 'xxx';
 $psr17Factory = new Psr17Factory();
 $httpClient = new FileGetContents($psr17Factory);
 
-$apiClient = HttpApiClient::with($account, $apiKey, $httpClient, $psr17Factory);
+$apiClient = HttpApiClient::with($accountName, $apiKey, $httpClient, $psr17Factory);
 ```
 
 ### Creating your own API client
