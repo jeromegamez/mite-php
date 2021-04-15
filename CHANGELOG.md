@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased 
+## 1.1.1 - 2021-01-15 
 
 * Fixed data being used as URL params for POST and PATCH requests
 
