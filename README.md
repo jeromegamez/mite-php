@@ -10,16 +10,14 @@ Interact with [mite](https://mite.yo.lk) from your PHP application.
 
 * [Requirements](#requirements)
 * [Installation](#installation)
-* [Setup](#setup)
-  * [Creating an API client based on Guzzle](#creating-an-api-client-based-on-guzzle)
-  * [Creating an API client based on a PSR-18 HTTP Client](#creating-an-api-client-based-on-a-psr-18-http-client)
-  * [Creating your own API client](#creating-your-own-api-client)
-  * [Caching HTTP requests](#caching-http-requests)
 * [Usage](#usage)
+  * [Basic API client](#basic-api-client)
   * [Simple API](#simple-api)
   * [Simple Tracker](#simple-tracker)
   * [Catching errors](#catching-errors)
-* [Roadmap](#roadmap)
+  * [Caching HTTP requests](#caching-http-requests)
+  * [Creating your own API client](#creating-your-own-api-client)
+* [License](#license)
 
 ---
 
@@ -32,85 +30,61 @@ Please note that the capabilities of the library are limited by the permissions 
 As an example, a user with the role "Time Tracker" can only access data that has been made available 
 to them and is not allowed to create new customers.
  
-If you want to see and do anything, use an account with administrative permissions.
+Users with the `admin` role can see and do (almost) everything.
 
 ---
 
 ## Installation
 
-```bash
-composer require gamez/mite
-```
+In order to use this library, you need a [PSR-18](https://packagist.org/providers/psr/http-client-implementation), and a
+[PSR-17 HTTP Message Factory](https://packagist.org/providers/psr/http-factory-implementation).
 
----
-
-## Setup
-
-### Creating an API client based on Guzzle
+### Example using `kriswallsmith/buzz` and `nyholm/psr7`
 
 ```bash
-composer require guzzlehttp/guzzle:^7.3
-``` 
-
-```php
-<?php
-// a file in the same directory in which you performed the composer command(s)
-require 'vendor/autoload.php';
-
-use Gamez\Mite\Api\GuzzleApiClient;
-
-$accountName = 'xxx';
-$apiKey = 'xxx';
-
-$apiClient = GuzzleApiClient::with($accountName, $apiKey);
-```
-
-### Creating an API client based on a PSR-18 HTTP Client
-
-The following example uses [kriswallsmith/buzz](https://github.com/kriswallsmith/Buzz) as the client 
-and [nyholm/psr7](https://github.com/Nyholm/psr7) as the Request Factory, but you can use any 
-library that implements [PSR-17](https://packagist.org/providers/psr/http-factory-implementation) 
-and [PSR-18](https://packagist.org/providers/psr/http-client-implementation).
-
-```bash
-composer require kriswallsmith/buzz:^1.0 nyholm/psr7:^1.0
+composer require kriswallsmith/buzz nyholm/psr7 gamez/mite
 ```
 
 ```php
-<?php
-// a file in the same directory in which you performed the composer command(s)
-require 'vendor/autoload.php';
-
-use Buzz\Client\FileGetContents;
-use Gamez\Mite\Api\HttpApiClient;
-use Nyholm\Psr7\Factory\Psr17Factory;
-
-$accountName = 'xxx';
-$apiKey = 'xxx';
-
-$psr17Factory = new Psr17Factory();
-$httpClient = new FileGetContents($psr17Factory);
-
-$apiClient = HttpApiClient::with($accountName, $apiKey, $httpClient, $psr17Factory);
+$requestFactory = new \Nyholm\Psr7\Factory\Psr17Factory();
+$httpClient = new \Buzz\Client\FileGetContents($requestFactory);
 ```
 
-### Creating your own API client
+### Example using `guzzlehttp/guzzle` and `laminas/laminas-diactoros`
 
-If you want to create your own API client, implement the `\Gamez\Mite\Api\ApiClient` interface
-and use your implementation.
+```bash
+composer require guzzlehttp/guzzle laminas/laminas-diactoros gamez/mite
+```
 
-### Caching HTTP requests
-
-To cache HTTP requests to the API, you can add a caching middleware/plugin to the HTTP client
-before injecting it into the API client instance. See the documentation of the respective
-component for instructions on how to do that.
-
-* Guzzle: [kevinrob/guzzle-cache-middleware](https://github.com/Kevinrob/guzzle-cache-middleware)
-* HTTPlug: [Cache Plugin](http://docs.php-http.org/en/latest/plugins/cache.html)
+```php
+$requestFactory = new \Laminas\Diactoros\RequestFactory();
+$httpClient = new \GuzzleHttp\Client();
+```
 
 ---
 
 ## Usage
+
+### Basic API client
+
+Once you have created an HTTP Client and Request Factory as described in the installation section,
+you can create an API client with them:
+
+```php
+use Gamez\Mite\Api\HttpApiClient;
+
+$accountName = 'xxx';
+$apiKey = 'xxx';
+
+/**
+ * @var \Psr\Http\Message\RequestFactoryInterface $requestFactory
+ * @var \Psr\Http\Client\ClientInterface $httpClient
+ */
+$apiClient = HttpApiClient::with($accountName, $apiKey, $httpClient, $requestFactory);
+```
+
+This API client allows you to make authenticated HTTP requests to the API of your mite account - 
+see [mite's REST API documentation](https://mite.yo.lk/en/api/) for the endpoints you can use.
 
 ### Simple API
 
@@ -130,11 +104,11 @@ For information on which query parameters and field values are allowed, see
 #### Example
 
 ```php
-<?php
-
 use Gamez\Mite\SimpleApi;
 
-/** @var \Gamez\Mite\Api\ApiClient $apiClient */
+/** 
+ * @var \Gamez\Mite\Api\ApiClient $apiClient 
+ */
 $api = SimpleApi::withApiClient($apiClient);
 
 $customer = $api->createCustomer([
@@ -195,8 +169,6 @@ to inspect the result to know if the action has been successful or not - if an a
 error, it has been successful.
 
 ```php
-<?php
-
 use Gamez\Mite\SimpleApi;
 use Gamez\Mite\SimpleTracker;
 
@@ -222,8 +194,6 @@ All exceptions thrown by this library implement the `\Gamez\Mite\Exception\MiteE
 Exceptions thrown while using an API Client will throw a `\Gamez\Mite\Exception\ApiClientError`.
 
 ```php
-<?php 
-
 use Gamez\Mite\Exception\ApiClientError;
 use Gamez\Mite\Exception\MiteException;
 
@@ -248,15 +218,22 @@ try {
 // The URI /nice-try could not be found.
 ```
 
----
+### Caching HTTP requests
 
-## Roadmap
+To cache HTTP requests to the API, you can add a caching middleware/plugin to the HTTP client
+before injecting it into the API client instance. See the documentation of the respective
+component for instructions on how to do that.
 
-* Tests
-* Interfaces and value objects
-* CLI tool
-* Better documentation
-* Using mite XML Backup files as a data backend 
+* Guzzle: [kevinrob/guzzle-cache-middleware](https://github.com/Kevinrob/guzzle-cache-middleware)
+* HTTPlug: [Cache Plugin](http://docs.php-http.org/en/latest/plugins/cache.html)
 
----
+### Creating your own API client
 
+If you want to create your own API client, implement the `\Gamez\Mite\Api\ApiClient` interface
+and use your implementation.
+
+## License
+
+`gamez/mite` is licensed under the [MIT License](LICENSE).
+
+Your use of mite is governed by the [Terms of Service for mite.](https://mite.yo.lk/en/terms.html).

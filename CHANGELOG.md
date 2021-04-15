@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+* Removed the `GuzzleApiClient` implementation, because Guzzle implements PSR-18 since release 7.0. If you
+  used the `GuzzleApiClient`, please refer to the updated installation instructions in the README.
+  
 ## 1.1.1 - 2021-01-15 
 
 * Fixed data being used as URL params for POST and PATCH requests
