@@ -67,12 +67,12 @@ final class HttpApiClient implements ApiClient
 
     public function post(string $endpoint, array $data = null): ResponseInterface
     {
-        return $this->request('POST', $endpoint, $data);
+        return $this->request('POST', $endpoint, null, $data);
     }
 
     public function patch(string $endpoint, array $data = null): ResponseInterface
     {
-        return $this->request('PATCH', $endpoint, $data);
+        return $this->request('PATCH', $endpoint, null, $data);
     }
 
     public function delete(string $endpoint, array $params = null): ResponseInterface
