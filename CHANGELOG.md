@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.1 - 2021-04-16
+
+* Fixed typo in `HttpApiClient` causing invalid host names 
+  ([#2](https://github.com/jeromegamez/mite-php/pull/2))
+
 ## 2.0 - 2021-04-15
 
 * Dropped support for PHP <7.4
