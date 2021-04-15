@@ -12,15 +12,8 @@ use Throwable;
 
 final class ApiClientError extends RuntimeException implements MiteException
 {
-    /**
-     * @var RequestInterface
-     */
-    private $request;
-
-    /**
-     * @var ResponseInterface|null
-     */
-    private $response;
+    private RequestInterface $request;
+    private ?ResponseInterface $response;
 
     public function __construct(RequestInterface $request, ?ResponseInterface $response, string $message = null, int $code = null, Throwable $previous = null)
     {
@@ -51,7 +44,7 @@ final class ApiClientError extends RuntimeException implements MiteException
         $code = $response->getStatusCode();
         try {
             $data = JSON::decode((string) $response->getBody(), true);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $data = [];
         }
         $message = $data['error'] ?? null;

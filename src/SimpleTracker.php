@@ -9,10 +9,7 @@ use Gamez\Mite\Support\JSON;
 
 final class SimpleTracker
 {
-    /**
-     * @var ApiClient
-     */
-    private $client;
+    private ApiClient $client;
 
     private function __construct()
     {

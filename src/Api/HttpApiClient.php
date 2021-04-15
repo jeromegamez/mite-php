@@ -14,30 +14,11 @@ use Psr\Http\Message\ResponseInterface;
 
 final class HttpApiClient implements ApiClient
 {
-    /**
-     * @var string
-     */
-    private $apiScheme = 'https';
-
-    /**
-     * @var string
-     */
-    private $apiHost;
-
-    /**
-     * @var string
-     */
-    private $apiKey;
-
-    /**
-     * @var ClientInterface
-     */
-    private $client;
-
-    /**
-     * @var RequestFactoryInterface
-     */
-    private $requestFactory;
+    private string $apiScheme = 'https';
+    private string $apiHost;
+    private string $apiKey;
+    private ClientInterface $client;
+    private RequestFactoryInterface $requestFactory;
 
     private function __construct()
     {
@@ -47,7 +28,7 @@ final class HttpApiClient implements ApiClient
     {
         $that = new self();
 
-        $that->apiHost = "{$accountName}.mite.yo.lk";
+        $that->apiHost = "$accountName}.mite.yo.lk";
         $that->apiKey = $apiKey;
         $that->client = $client;
         $that->requestFactory = $requestFactory;
@@ -84,7 +65,7 @@ final class HttpApiClient implements ApiClient
      * @param array<string, numeric|string>|null $params
      * @param array<string, numeric|string>|null $data
      */
-    private function request(string $method, string $endpoint, array $params = null, array $data = null): ResponseInterface
+    private function request(string $method, string $endpoint, array $params = null, ?array $data = null): ResponseInterface
     {
         $url = $this->createUrl($endpoint, $params);
 
