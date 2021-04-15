@@ -1,16 +1,16 @@
 # Changelog
 
-## Unreleased
+## 2.0 - 2021-04-15
 
 * Dropped support for PHP <7.4
 * Removed the `GuzzleApiClient` implementation, because Guzzle implements PSR-18 since release 7.0. If you
   used the `GuzzleApiClient`, please refer to the updated installation instructions in the README.
   
-## 1.1.1 - 2021-01-15 
+## 1.1.1 - 2021-04-15 
 
 * Fixed data being used as URL params for POST and PATCH requests
 
-## 1.1 - 2021-01-15
+## 1.1 - 2021-04-15
 
 * Added support for PHP 8.0
 * The signatures of the following methods have changed
