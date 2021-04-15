@@ -1,10 +1,10 @@
 # Changelog
 
-## 1.1.1 - 2021-01-15 
+## 1.1.1 - 2021-04-15 
 
 * Fixed data being used as URL params for POST and PATCH requests
 
-## 1.1 - 2021-01-15
+## 1.1 - 2021-04-15
 
 * Added support for PHP 8.0
 * The signatures of the following methods have changed
