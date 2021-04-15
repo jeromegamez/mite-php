@@ -2,17 +2,8 @@ language: php
 sudo: false
 
 php:
-    - 7.2
-    - 7.3
     - 7.4
     - 8.0
-
-matrix:
-    fast_finish: true
-
-cache:
-    directories:
-        - $HOME/.composer/cache
 
 install: composer update --no-interaction --no-suggest --no-progress
 
