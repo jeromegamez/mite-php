@@ -28,7 +28,7 @@ final class HttpApiClient implements ApiClient
     {
         $that = new self();
 
-        $that->apiHost = "$accountName.mite.yo.lk";
+        $that->apiHost = "{$accountName}.mite.yo.lk";
         $that->apiKey = $apiKey;
         $that->client = $client;
         $that->requestFactory = $requestFactory;
