@@ -36,7 +36,7 @@ Users with the `admin` role can see and do (almost) everything.
 
 ## Installation
 
-In order to use this library, you need a [PSR-18](https://packagist.org/providers/psr/http-client-implementation), and a
+In order to use this library, you need a [PSR-18 HTTP Client](https://packagist.org/providers/psr/http-client-implementation), and a
 [PSR-17 HTTP Message Factory](https://packagist.org/providers/psr/http-factory-implementation).
 
 ### Example using `kriswallsmith/buzz` and `nyholm/psr7`
