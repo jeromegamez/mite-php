@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0 - 2023-02-20
+
+* Changed API domain from `mite.yo.lk` to `mite.de`
+  (see [mite.de blog post](https://mite.de/en/blog/2023/02/14/upcoming-move-to-mite-de/))
+  ([#5](https://github.com/jeromegamez/mite-php/pull/5))
+
 ## 2.0.1 - 2021-04-16
 
 * Fixed typo in `HttpApiClient` causing invalid host names 
