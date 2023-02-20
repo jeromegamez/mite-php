@@ -1,6 +1,6 @@
 {
     "name": "gamez/mite",
-    "description": "Interact with mite (https://mite.yo.lk) from your PHP application.",
+    "description": "Interact with mite (https://mite.de) from your PHP application.",
     "keywords": ["mite", "api", "sdk", "time tracking"],
     "license": "MIT",
     "homepage": "https://github.com/jeromegamez/mite-php",
