@@ -1,4 +1,9 @@
 parameters:
-	level: max
+	level: 8
 	paths:
-		- src
+		- src/
+
+	checkUninitializedProperties: true
+
+includes:
+	- vendor/phpstan/phpstan/conf/bleedingEdge.neon

@@ -31,6 +31,8 @@
         "kriswallsmith/buzz": "^1.2.1",
         "laminas/laminas-diactoros": "^2.24",
         "nyholm/psr7": "^1.5.1",
+        "phpstan/extension-installer": "^1.2",
+        "phpstan/phpstan": "^1.9.17",
         "symfony/var-dumper": "^6.2.5"
     },
     "autoload": {
@@ -39,6 +41,9 @@
         }
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     }
 }
