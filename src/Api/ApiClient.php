@@ -13,49 +13,44 @@ interface ApiClient
     public const USER_AGENT = 'gamez/mite (https://github.com/jeromegamez/mite-php)';
 
     /**
-     * Perform a HEAD request to an endpoint with optional query parameters.
-     *
-     * @param array<string, mixed>|null $params
-     *
-     * @throws ApiClientError
-     * @throws InvalidArgument
-     */
-    public function head(string $endpoint, array $params = null): ResponseInterface;
-
-    /**
-     * Perform a GET request to an endpoint with optional query parameters.
-     *
-     * @param array<string, mixed>|null $params
+     * @param non-empty-string $endpoint
+     * @param array<non-empty-string, mixed>|null $params
      *
      * @throws ApiClientError
      * @throws InvalidArgument
      */
-    public function get(string $endpoint, array $params = null): ResponseInterface;
+    public function head(string $endpoint, ?array $params = null): ResponseInterface;
 
     /**
-     * Perform a POST request to an endpoint with optional data.
-     *
-     * @param array<string, mixed>|null $data
+     * @param non-empty-string $endpoint
+     * @param array<non-empty-string, mixed>|null $params
      *
      * @throws ApiClientError
      * @throws InvalidArgument
      */
-    public function post(string $endpoint, array $data = null): ResponseInterface;
+    public function get(string $endpoint, ?array $params = null): ResponseInterface;
 
     /**
-     * Perform a PATCH request to an endpoint with optional data.
-     *
-     * @param array<string, mixed>|null $data
+     * @param non-empty-string $endpoint
+     * @param array<non-empty-string, mixed>|null $data
      *
      * @throws ApiClientError
      * @throws InvalidArgument
      */
-    public function patch(string $endpoint, array $data = null): ResponseInterface;
+    public function post(string $endpoint, ?array $data = null): ResponseInterface;
 
     /**
-     * Perform a DELETE request to an endpoint with optional query parameters.
+     * @param non-empty-string $endpoint
+     * @param array<non-empty-string, mixed>|null $data
      *
-     * @param array<string, mixed>|null $params
+     * @throws ApiClientError
+     * @throws InvalidArgument
+     */
+    public function patch(string $endpoint, ?array $data = null): ResponseInterface;
+
+    /**
+     * @param non-empty-string $endpoint
+     * @param array<non-empty-string, mixed>|null $params
      *
      * @throws ApiClientError
      * @throws InvalidArgument

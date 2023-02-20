@@ -9,22 +9,18 @@ use Gamez\Mite\Api\ApiClient;
 
 final class SimpleApi
 {
-    private ApiClient $client;
-
-    private function __construct()
-    {
+    private function __construct(
+        private readonly ApiClient $client,
+    ) {
     }
 
     public static function withApiClient(ApiClient $apiClient): self
     {
-        $that = new self();
-        $that->client = $apiClient;
-
-        return $that;
+        return new self($apiClient);
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function getAccount(): array
     {
@@ -32,7 +28,7 @@ final class SimpleApi
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function getMyself(): array
     {
@@ -40,9 +36,9 @@ final class SimpleApi
     }
 
     /**
-     * @param array<string, mixed> $params
+     * @param array<non-empty-string, mixed> $params
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function getActiveCustomers(?array $params = null): array
     {
@@ -50,9 +46,9 @@ final class SimpleApi
     }
 
     /**
-     * @param array<string, mixed> $params
+     * @param array<non-empty-string, mixed> $params
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function getArchivedCustomers(?array $params = null): array
     {
@@ -60,19 +56,19 @@ final class SimpleApi
     }
 
     /**
-     * @param int|numeric-string $id
+     * @param positive-int|numeric-string $id
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
-    public function getCustomer($id): array
+    public function getCustomer(int|string $id): array
     {
         return $this->getSingle("customers/{$id}");
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param array<non-empty-string, mixed> $data
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function createCustomer(array $data): array
     {
@@ -83,12 +79,12 @@ final class SimpleApi
     }
 
     /**
-     * @param int|numeric-string $id
-     * @param array<string, mixed> $data
+     * @param positive-int|numeric-string $id
+     * @param array<non-empty-string, mixed> $data
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
-    public function updateCustomer($id, array $data): array
+    public function updateCustomer(int|string $id, array $data): array
     {
         $this->client->patch("customers/{$id}", ['customer' => $data]);
 
@@ -96,7 +92,7 @@ final class SimpleApi
     }
 
     /**
-     * @param int|numeric-string $id
+     * @param positive-int|numeric-string $id
      */
     public function deleteCustomer($id): void
     {
@@ -104,9 +100,9 @@ final class SimpleApi
     }
 
     /**
-     * @param array<string, mixed>|null $params
+     * @param array<non-empty-string, mixed>|null $params
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function getActiveProjects(?array $params = null): array
     {
@@ -114,29 +110,29 @@ final class SimpleApi
     }
 
     /**
-     * @param array<string, mixed>|null $params
+     * @param array<non-empty-string, mixed>|null $params
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
-    public function getArchivedProjects($params = null): array
+    public function getArchivedProjects(?array $params = null): array
     {
         return $this->get('projects/archived', 'project', $params);
     }
 
     /**
-     * @param int|numeric-string $id
+     * @param positive-int|numeric-string $id
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
-    public function getProject($id): array
+    public function getProject(int|string $id): array
     {
         return $this->getSingle("projects/{$id}");
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param array<non-empty-string, mixed> $data
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function createProject(array $data): array
     {
@@ -147,12 +143,12 @@ final class SimpleApi
     }
 
     /**
-     * @param int|numeric-string $id
-     * @param array<string, mixed> $data
+     * @param positive-int|numeric-string $id
+     * @param array<non-empty-string, mixed> $data
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
-    public function updateProject($id, array $data): array
+    public function updateProject(int|string $id, array $data): array
     {
         $this->client->patch("projects/{$id}", ['project' => $data]);
 
@@ -160,17 +156,17 @@ final class SimpleApi
     }
 
     /**
-     * @param int|numeric-string $id
+     * @param positive-int|numeric-string $id
      */
-    public function deleteProject($id): void
+    public function deleteProject(int|string $id): void
     {
         $this->client->delete("projects/{$id}");
     }
 
     /**
-     * @param array<string, mixed>|null $params
+     * @param array<non-empty-string, mixed>|null $params
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function getActiveServices(?array $params = null): array
     {
@@ -178,9 +174,9 @@ final class SimpleApi
     }
 
     /**
-     * @param array<string, mixed> $params
+     * @param array<non-empty-string, mixed> $params
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function getArchivedServices(?array $params = null): array
     {
@@ -188,19 +184,19 @@ final class SimpleApi
     }
 
     /**
-     * @param int|numeric-string $id
+     * @param positive-int|numeric-string $id
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
-    public function getService($id): array
+    public function getService(int|string $id): array
     {
         return $this->getSingle("services/{$id}");
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param array<non-empty-string, mixed> $data
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function createService(array $data): array
     {
@@ -211,12 +207,12 @@ final class SimpleApi
     }
 
     /**
-     * @param int|numeric-string $id
+     * @param positive-int|numeric-string $id
      * @param array<string, mixed> $data
      *
      * @return array<string, mixed>
      */
-    public function updateService($id, array $data): array
+    public function updateService(int|string $id, array $data): array
     {
         $this->client->patch("services/{$id}", ['service' => $data]);
 
@@ -224,17 +220,17 @@ final class SimpleApi
     }
 
     /**
-     * @param int|numeric-string $id
+     * @param positive-int|numeric-string $id
      */
-    public function deleteService($id): void
+    public function deleteService(int|string $id): void
     {
         $this->client->delete("services/{$id}");
     }
 
     /**
-     * @param array<string, mixed> $params
+     * @param array<non-empty-string, mixed> $params
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function getTimeEntries(?array $params = null): array
     {
@@ -243,9 +239,9 @@ final class SimpleApi
 
     /**
      * @param string|string[] $groupBy
-     * @param array<string, mixed> $params
+     * @param array<non-empty-string, mixed> $params
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function getGroupedTimeEntries($groupBy, $params = null): array
     {
@@ -259,9 +255,9 @@ final class SimpleApi
     }
 
     /**
-     * @param int|numeric-string $id
+     * @param positive-int|numeric-string $id
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function getTimeEntry($id): array
     {
@@ -282,12 +278,12 @@ final class SimpleApi
     }
 
     /**
-     * @param int|numeric-string $id
-     * @param array<string, mixed> $data
+     * @param positive-int|numeric-string $id
+     * @param array<non-empty-string, mixed> $data
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
-    public function updateTimeEntry($id, array $data): array
+    public function updateTimeEntry(int|string $id, array $data): array
     {
         $this->client->patch("time_entries/{$id}", ['time_entry' => $data]);
 
@@ -297,15 +293,15 @@ final class SimpleApi
     /**
      * @param int|numeric-string $id
      */
-    public function deleteTimeEntry($id): void
+    public function deleteTimeEntry(int|string $id): void
     {
         $this->client->delete("time_entries/{$id}");
     }
 
     /**
-     * @param array<string, mixed> $params
+     * @param array<non-empty-string, mixed> $params
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function getActiveUsers(?array $params = null): array
     {
@@ -313,9 +309,9 @@ final class SimpleApi
     }
 
     /**
-     * @param array<string, mixed> $params
+     * @param array<non-empty-string, mixed> $params
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function getArchivedUsers(?array $params = null): array
     {
@@ -323,26 +319,37 @@ final class SimpleApi
     }
 
     /**
-     * @param array<string, mixed>|null $params
+     * @param non-empty-string $endpoint
+     * @param array<non-empty-string, mixed>|null $params
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     private function get(string $endpoint, string $column, ?array $params = null): array
     {
         $response = $this->client->get($endpoint, $params);
+
         $data = JSON::decode((string) $response->getBody(), true);
 
-        return array_column($data, $column);
+        /** @var array<non-empty-string, mixed> $result */
+        $result = array_column($data, $column);
+
+        return $result;
     }
 
     /**
-     * @return array<string, mixed>
+     * @param non-empty-string $endpoint
+     *
+     * @return array<non-empty-string, mixed>
      */
     private function getSingle(string $endpoint): array
     {
         $response = $this->client->get($endpoint);
+        /** @var array<non-empty-string|mixed> $data */
         $data = JSON::decode((string) $response->getBody(), true);
 
-        return current($data);
+        /** @var array<non-empty-string|mixed> $data */
+        $current = current($data);
+
+        return $current;
     }
 }

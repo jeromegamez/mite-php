@@ -14,58 +14,64 @@ use Psr\Http\Message\ResponseInterface;
 
 final class HttpApiClient implements ApiClient
 {
-    private string $apiScheme = 'https';
-    private string $apiHost;
-    private string $apiKey;
-    private ClientInterface $client;
-    private RequestFactoryInterface $requestFactory;
-
-    private function __construct()
-    {
+    /**
+     * @param non-empty-string $apiHost
+     * @param non-empty-string $apiKey
+     */
+    private function __construct(
+        private readonly string $apiHost,
+        private readonly string $apiKey,
+        private readonly ClientInterface $client,
+        private readonly RequestFactoryInterface $requestFactory,
+    ) {
     }
 
+    /**
+     * @param non-empty-string $accountName
+     * @param non-empty-string $apiKey
+     */
     public static function with(string $accountName, string $apiKey, ClientInterface $client, RequestFactoryInterface $requestFactory): self
     {
-        $that = new self();
-
-        $that->apiHost = "{$accountName}.mite.de";
-        $that->apiKey = $apiKey;
-        $that->client = $client;
-        $that->requestFactory = $requestFactory;
-
-        return $that;
+        return new self(
+            apiHost: "{$accountName}.mite.de",
+            apiKey: $apiKey,
+            client: $client,
+            requestFactory: $requestFactory,
+        );
     }
 
-    public function head(string $endpoint, array $params = null): ResponseInterface
+    public function head(string $endpoint, ?array $params = null): ResponseInterface
     {
         return $this->request('HEAD', $endpoint, $params);
     }
 
-    public function get(string $endpoint, array $params = null): ResponseInterface
+    public function get(string $endpoint, ?array $params = null): ResponseInterface
     {
         return $this->request('GET', $endpoint, $params);
     }
 
-    public function post(string $endpoint, array $data = null): ResponseInterface
+    public function post(string $endpoint, ?array $data = null): ResponseInterface
     {
         return $this->request('POST', $endpoint, null, $data);
     }
 
-    public function patch(string $endpoint, array $data = null): ResponseInterface
+    public function patch(string $endpoint, ?array $data = null): ResponseInterface
     {
         return $this->request('PATCH', $endpoint, null, $data);
     }
 
-    public function delete(string $endpoint, array $params = null): ResponseInterface
+    public function delete(string $endpoint, ?array $params = null): ResponseInterface
     {
         return $this->request('DELETE', $endpoint, $params);
     }
 
     /**
-     * @param array<string, numeric|string>|null $params
-     * @param array<string, numeric|string>|null $data
+     * @param non-empty-string $method
+     * @param non-empty-string $endpoint
+     * @param array<non-empty-string, numeric|string>|null $params
+     * @param array<non-empty-string, mixed>|null $data
      */
-    private function request(string $method, string $endpoint, array $params = null, ?array $data = null): ResponseInterface
+    private function request(string $method, string $endpoint, ?array $params = null, ?array $data = null): ResponseInterface
     {
         $url = $this->createUrl($endpoint, $params);
 
@@ -75,9 +81,11 @@ final class HttpApiClient implements ApiClient
             'User-Agent' => self::USER_AGENT,
         ];
 
-        $body = '';
-        if (!empty($data)) {
+        $body = null;
+        if (null !== $data) {
             $body = JSON::encode($data);
+            assert('' !== $body);
+
             $headers['Content-Type'] = 'application/json';
         }
 
@@ -97,11 +105,14 @@ final class HttpApiClient implements ApiClient
     }
 
     /**
-     * @param array<string, numeric|string>|null $params
+     * @param non-empty-string $endpoint
+     * @param array<non-empty-string, mixed>|null $params
+     *
+     * @return non-empty-string
      */
     private function createUrl(string $endpoint, array $params = null): string
     {
-        $url = "{$this->apiScheme}://{$this->apiHost}/{$endpoint}";
+        $url = "https://{$this->apiHost}/{$endpoint}.json";
 
         if (!empty($params)) {
             $url .= '?'.http_build_query($params, '', '&', PHP_QUERY_RFC3986);
@@ -111,12 +122,18 @@ final class HttpApiClient implements ApiClient
     }
 
     /**
-     * @param array<string, string|string[]> $headers
+     * @param non-empty-string $method
+     * @param non-empty-string $url
+     * @param array<non-empty-string, non-empty-string|list<non-empty-string>> $headers
+     * @param non-empty-string|null $body
      */
-    private function createRequest(string $method, string $url, array $headers, string $body = ''): RequestInterface
+    private function createRequest(string $method, string $url, array $headers, ?string $body = null): RequestInterface
     {
         $request = $this->requestFactory->createRequest($method, $url);
-        $request->getBody()->write($body);
+
+        if (null !== $body) {
+            $request->getBody()->write($body);
+        }
 
         foreach ($headers as $name => $value) {
             $request = $request->withAddedHeader($name, $value);

@@ -15,17 +15,22 @@ final class ApiClientError extends RuntimeException implements MiteException
     private RequestInterface $request;
     private ?ResponseInterface $response;
 
-    public function __construct(RequestInterface $request, ?ResponseInterface $response, string $message = null, int $code = null, Throwable $previous = null)
+    public function __construct(
+        RequestInterface $request,
+        ?ResponseInterface $response,
+        ?string $message = null,
+        ?int $code = null,
+        ?Throwable $previous = null)
     {
         $this->request = $request;
+        $this->response = $response;
 
         if ($response) {
-            $this->response = $response;
             $message = $message ?: $response->getReasonPhrase();
-            $code = $code ?: $response->getStatusCode();
+            $code = $response->getStatusCode();
         } elseif ($previous) {
             $message = $message ?: $previous->getMessage();
-            $code = $code ?: $previous->getCode();
+            $code = $previous->getCode();
         } else {
             $message = $message ?: 'An API error occurred';
             $code = 0;

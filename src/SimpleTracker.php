@@ -9,18 +9,14 @@ use Gamez\Mite\Api\ApiClient;
 
 final class SimpleTracker
 {
-    private ApiClient $client;
-
-    private function __construct()
-    {
+    private function __construct(
+        private readonly ApiClient $client,
+    ) {
     }
 
     public static function withApiClient(ApiClient $apiClient): self
     {
-        $that = new self();
-        $that->client = $apiClient;
-
-        return $that;
+        return new self($apiClient);
     }
 
     /**
