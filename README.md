@@ -2,9 +2,9 @@
 
 Interact with [mite](https://mite.de) from your PHP application.
 
-[![Current version](https://img.shields.io/packagist/v/gamez/mite.svg)](https://packagist.org/packages/gamez/mite)
-[![Supported PHP version](https://img.shields.io/packagist/php-v/gamez/mite.svg)]()
-[![Discord](https://img.shields.io/discord/807679292573220925.svg?color=7289da&logo=discord)](https://discord.gg/Yacm7unBsr)
+[![Current version](https://img.shields.io/packagist/v/gamez/mite.svg?logo=composer)](https://packagist.org/packages/gamez/mite)
+[![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/gamez/mite)](https://packagist.org/packages/gamez/mite)
+[![Tests](https://github.com/jeromegamez/mite-php/actions/workflows/tests.yml/badge.svg)](https://github.com/jeromegamez/mite-php/actions/workflows/tests.yml)
 [![Sponsor](https://img.shields.io/static/v1?logo=GitHub&label=Sponsor&message=%E2%9D%A4&color=ff69b4)](https://github.com/sponsors/jeromegamez)
 
 ---
