@@ -45,5 +45,17 @@
         "allow-plugins": {
             "phpstan/extension-installer": true
         }
+    },
+    "scripts": {
+        "install-tools": [
+            "@install-php-cs-fixer"
+        ],
+        "install-php-cs-fixer": [
+            "mkdir --parents tools/php-cs-fixer",
+            "composer require --dev --working-dir=tools/php-cs-fixer beste/php-cs-fixer-config"
+        ],
+        "cs": [
+            "PHP_CS_FIXER_IGNORE_ENV=1 tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --diff"
+        ]
     }
 }

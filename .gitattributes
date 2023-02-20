@@ -7,5 +7,4 @@
 /.gitignore export-ignore
 /.php_cs.dist export-ignore
 
-/phive.xml export-ignore
 /phpstan.neon.dist export-ignore
