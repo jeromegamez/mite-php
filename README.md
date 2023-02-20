@@ -1,6 +1,6 @@
 # mite SDK for PHP
 
-Interact with [mite](https://mite.yo.lk) from your PHP application.
+Interact with [mite](https://mite.de) from your PHP application.
 
 [![Current version](https://img.shields.io/packagist/v/gamez/mite.svg)](https://packagist.org/packages/gamez/mite)
 [![Supported PHP version](https://img.shields.io/packagist/php-v/gamez/mite.svg)]()
@@ -25,8 +25,8 @@ Interact with [mite](https://mite.yo.lk) from your PHP application.
 
 ## Requirements
 
-- An account name (The first part of your mite account's domain, e.g. in https://**xxx**.mite.yo.lk)
-- An API key (You can find your API key on https://xxx.mite.yo.lk/myself)
+- An account name (The first part of your mite account's domain, e.g. in https://**xxx**.mite.de)
+- An API key (You can find your API key on https://xxx.mite.de/myself)
 
 Please note that the capabilities of the library are limited by the permissions of the used credentials.
 As an example, a user with the role "Time Tracker" can only access data that has been made available 
@@ -86,12 +86,12 @@ $apiClient = HttpApiClient::with($accountName, $apiKey, $httpClient, $requestFac
 ```
 
 This API client allows you to make authenticated HTTP requests to the API of your mite account - 
-see [mite's REST API documentation](https://mite.yo.lk/en/api/) for the endpoints you can use.
+see [mite's REST API documentation](https://mite.de/en/api/) for the endpoints you can use.
 
 ### Simple API
 
 [`Gamez\Mite\SimpleApi`](./src/SimpleApi.php) is the easiest and fastest way to access the data in your 
-mite account. Its methods are named after the [available REST API endpoints](https://mite.yo.lk/en/api/) 
+mite account. Its methods are named after the [available REST API endpoints](https://mite.de/en/api/) 
 and always return arrays of data. You can inspect the available methods by looking at the
 [source code of the `Gamez\Mite\SimpleApi` class](./src/SimpleApi.php) or by using the 
 autocompletion features of your IDE.
@@ -101,7 +101,7 @@ features either. It will, for example, not tell you if you used a wrong query pa
 field value, so you will have to rely on the returned API responses.
 
 For information on which query parameters and field values are allowed, see 
-[official mite API documentation](https://mite.yo.lk/en/api/)
+[official mite API documentation](https://mite.de/en/api/)
 
 #### Example
 
@@ -216,7 +216,7 @@ try {
     exit('Something not API related went really wrong: '.$e->getMessage());
 }
 
-// Something went wrong while accessing https://xxx.mite.yo.lk/nice-try (404) :
+// Something went wrong while accessing https://xxx.mite.de/nice-try (404) :
 // The URI /nice-try could not be found.
 ```
 
@@ -238,4 +238,4 @@ and use your implementation.
 
 `gamez/mite` is licensed under the [MIT License](LICENSE).
 
-Your use of mite is governed by the [Terms of Service for mite.](https://mite.yo.lk/en/terms.html).
+Your use of mite is governed by the [Terms of Service for mite.](https://mite.de/en/terms.html).
