@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Gamez\Mite\Exception;
 
-use Gamez\Mite\Support\JSON;
+use Beste\Json;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Gamez\Mite;
 
+use Beste\Json;
 use Gamez\Mite\Api\ApiClient;
-use Gamez\Mite\Support\JSON;
 
 final class SimpleTracker
 {
