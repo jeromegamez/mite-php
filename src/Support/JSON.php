@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Gamez\Mite\Support;
 
 use Gamez\Mite\Exception\InvalidArgument;
+
 use function json_decode;
 use function json_encode;
+
 use JsonException;
 use Throwable;
 
