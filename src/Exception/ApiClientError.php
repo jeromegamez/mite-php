@@ -24,6 +24,7 @@ final class ApiClientError extends RuntimeException implements MiteException
     {
         $this->request = $request;
         $this->response = $response;
+        $code = $code ?? 0;
 
         if ($response) {
             $message = $message ?: $response->getReasonPhrase();
@@ -33,7 +34,6 @@ final class ApiClientError extends RuntimeException implements MiteException
             $code = $previous->getCode();
         } else {
             $message = $message ?: 'An API error occurred';
-            $code = 0;
         }
 
         parent::__construct($message, $code, $previous);
