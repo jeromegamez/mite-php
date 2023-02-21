@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.0 - 2023-02-21
+
+* Dropped support for PHP <8.1
+
 ## 2.1.0 - 2023-02-20
 
 * Changed API domain from `mite.yo.lk` to `mite.de`
