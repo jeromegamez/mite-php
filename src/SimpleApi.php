@@ -94,7 +94,7 @@ final class SimpleApi
     /**
      * @param positive-int|numeric-string $id
      */
-    public function deleteCustomer($id): void
+    public function deleteCustomer(int|string $id): void
     {
         $this->client->delete("customers/{$id}");
     }
@@ -239,11 +239,11 @@ final class SimpleApi
 
     /**
      * @param string|string[] $groupBy
-     * @param array<non-empty-string, mixed> $params
+     * @param array<non-empty-string, mixed>|null $params
      *
      * @return array<non-empty-string, mixed>
      */
-    public function getGroupedTimeEntries($groupBy, $params = null): array
+    public function getGroupedTimeEntries(array|string $groupBy, ?array $params = null): array
     {
         if (is_array($groupBy)) {
             $groupBy = implode(',', $groupBy);
@@ -259,7 +259,7 @@ final class SimpleApi
      *
      * @return array<non-empty-string, mixed>
      */
-    public function getTimeEntry($id): array
+    public function getTimeEntry(int|string $id): array
     {
         return $this->getSingle("time_entries/{$id}");
     }

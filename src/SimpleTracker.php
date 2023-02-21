@@ -35,7 +35,7 @@ final class SimpleTracker
      *
      * @return array<string, mixed>
      */
-    public function start($id): array
+    public function start(int|string $id): array
     {
         $response = $this->client->patch("tracker/{$id}");
         $data = JSON::decode((string) $response->getBody(), true);
@@ -48,7 +48,7 @@ final class SimpleTracker
      *
      * @return array<string, mixed>
      */
-    public function stop($id): array
+    public function stop(int|string $id): array
     {
         $response = $this->client->delete("tracker/{$id}");
         $data = JSON::decode((string) $response->getBody(), true);
