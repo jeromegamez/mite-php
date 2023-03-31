@@ -82,9 +82,9 @@ final class HttpApiClient implements ApiClient
         ];
 
         $body = null;
-        if (null !== $data) {
+        if ($data !== null) {
             $body = JSON::encode($data);
-            assert('' !== $body);
+            assert($body !== '');
 
             $headers['Content-Type'] = 'application/json';
         }
@@ -131,7 +131,7 @@ final class HttpApiClient implements ApiClient
     {
         $request = $this->requestFactory->createRequest($method, $url);
 
-        if (null !== $body) {
+        if ($body !== null) {
             $request->getBody()->write($body);
         }
 

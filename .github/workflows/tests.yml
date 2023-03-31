@@ -25,9 +25,13 @@ jobs:
       - name: Setup Problem Matchers
         run: |
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Install composer dependencies
         run: composer update --prefer-dist --no-interaction --no-progress
 
-      - name: Test with PHPStan
+      - name: Lint
         run: vendor/bin/phpstan --configuration=phpstan.neon.dist
+
+      - name: Test
+        run: vendor/bin/phpunit --testdox
