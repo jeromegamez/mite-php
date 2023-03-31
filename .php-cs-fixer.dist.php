@@ -6,7 +6,6 @@ $finder = PhpCsFixer\Finder::create()
     ->in(['src']);
 
 return (new PhpCsFixer\Config())
-    ->setCacheFile(__DIR__ . '/tools/.php-cs-fixer.cache')
     ->setRules([
         '@Symfony' => true,
         'array_syntax' => ['syntax' => 'short'],
