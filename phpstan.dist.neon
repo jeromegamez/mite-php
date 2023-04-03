@@ -1,0 +1,15 @@
+parameters:
+	level: 8
+	paths:
+		- src/
+		- tests/
+
+	checkUninitializedProperties: true
+
+	ignoreErrors:
+		-
+			message: '#Parameter.+\$apiKey of.+IntegrationTestCase::createVCRApiClient\(\) expects non-empty-string#'
+			path: tests/Integration/IntegrationTestCase.php
+
+includes:
+	- vendor/phpstan/phpstan/conf/bleedingEdge.neon

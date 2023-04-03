@@ -17,6 +17,9 @@ use ReflectionClass;
  */
 final class CustomerTest extends SimpleApiTestCase
 {
+    /**
+     * @var array<non-empty-string, mixed>
+     */
     private static array $customer;
 
     public static function setUpBeforeClass(): void

@@ -24,6 +24,10 @@ use Psr\Http\Client\ClientInterface;
 abstract class IntegrationTestCase extends TestCase
 {
     protected static ApiClient $apiClient;
+
+    /**
+     * @var non-empty-string
+     */
     protected static string $accountName;
 
     public static function setUpBeforeClass(): void
@@ -33,13 +37,13 @@ abstract class IntegrationTestCase extends TestCase
         $accountName = trim($_ENV['MITE_ACCOUNT'] ?? 'beste');
         $apiKey = trim($_ENV['MITE_API_KEY'] ?? '');
 
-        $throwIfNotAbleToReplay = false;
-
-        if ($accountName === '' || $apiKey === '') {
-            $throwIfNotAbleToReplay = true;
+        if ($accountName === '') {
+            self::markTestSkipped('Account name not provided');
         }
 
         self::$accountName = $accountName;
+
+        $throwIfNotAbleToReplay = $apiKey === '';
 
         self::$apiClient = self::createVCRApiClient(
             $accountName,
@@ -49,6 +53,11 @@ abstract class IntegrationTestCase extends TestCase
         );
     }
 
+    /**
+     * @param non-empty-string $accountName
+     * @param non-empty-string $apiKey
+     * @param non-empty-string $filePath
+     */
     protected static function createVCRApiClient(string $accountName, string $apiKey, string $filePath, bool $throwIfNotAbleToReplay): ApiClient
     {
         return HttpApiClient::with(
@@ -59,6 +68,9 @@ abstract class IntegrationTestCase extends TestCase
         );
     }
 
+    /**
+     * @param non-empty-string $filePath
+     */
     protected static function createVCRClient(string $filePath, bool $throwIfNotAbleToReplay): ClientInterface
     {
         $namingStrategy = new PathNamingStrategy([
@@ -75,11 +87,18 @@ abstract class IntegrationTestCase extends TestCase
         );
     }
 
+    /**
+     * @param list<non-empty-string> $expected
+     * @param array<non-empty-string, mixed> $actual
+     */
     protected function assertArrayStructure(array $expected, array $actual): void
     {
         Assert::assertEqualsCanonicalizing($expected, array_keys($actual));
     }
 
+    /**
+     * @param array<non-empty-string, mixed> $actual
+     */
     protected function assertUserStructure(array $actual): void
     {
         $this->assertArrayStructure(
@@ -98,6 +117,9 @@ abstract class IntegrationTestCase extends TestCase
         );
     }
 
+    /**
+     * @param array<non-empty-string, mixed> $actual
+     */
     protected function assertCustomerStructure(array $actual): void
     {
         $this->assertArrayStructure(

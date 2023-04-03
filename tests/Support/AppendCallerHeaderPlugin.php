@@ -9,8 +9,15 @@ use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * @internal
+ */
 final class AppendCallerHeaderPlugin implements Plugin
 {
+    /**
+     * @param non-empty-string $header
+     * @param non-empty-string $namespace
+     */
     public function __construct(
         private readonly string $header,
         private readonly string $namespace,
@@ -21,24 +28,27 @@ final class AppendCallerHeaderPlugin implements Plugin
     {
         $backtrace = debug_backtrace();
 
-        $classAndMethod = '';
+        $method = '';
 
         foreach ($backtrace as $item) {
-            if (str_contains($item['class'], $this->namespace)) {
-                $classAndMethod = $item['class'].'::'.$item['function'];
+            $class = $item['class'] ?? '';
+            $function = $item['function'];
+
+            if (str_contains($class, $this->namespace)) {
+                $method = $class.'::'.$function;
                 break;
             }
         }
 
-        if ($classAndMethod === '') {
+        if ($method === '') {
             return $next($request);
         }
 
-        $request = $request->withAddedHeader($this->header, $classAndMethod);
+        $request = $request->withAddedHeader($this->header, $method);
 
-        return $next($request)->then(function (ResponseInterface $response) use ($classAndMethod) {
+        return $next($request)->then(function (ResponseInterface $response) use ($method) {
             if (!$response->hasHeader($this->header)) {
-                $response = $response->withAddedHeader($this->header, $classAndMethod);
+                $response = $response->withAddedHeader($this->header, $method);
             }
 
             return $response;

@@ -31,7 +31,7 @@ jobs:
         run: composer update --prefer-dist --no-interaction --no-progress
 
       - name: Lint
-        run: vendor/bin/phpstan --configuration=phpstan.neon.dist
+        run: vendor/bin/phpstan --configuration=phpstan.dist.neon
 
       - name: Test
         run: vendor/bin/phpunit --testdox
