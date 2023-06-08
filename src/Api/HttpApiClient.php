@@ -82,9 +82,10 @@ final class HttpApiClient implements ApiClient
         ];
 
         $body = null;
-        if ($data !== null) {
+
+        if (null !== $data) {
             $body = JSON::encode($data);
-            assert($body !== '');
+            \assert('' !== $body);
 
             $headers['Content-Type'] = 'application/json';
         }
@@ -97,7 +98,7 @@ final class HttpApiClient implements ApiClient
             throw ApiClientError::fromRequestAndReason($request, "Unable to send request to send {$method} request to {$endpoint}", $e);
         }
 
-        if ($response->getStatusCode() >= 400) {
+        if (400 <= $response->getStatusCode()) {
             throw ApiClientError::fromRequestAndResponse($request, $response);
         }
 
@@ -110,12 +111,12 @@ final class HttpApiClient implements ApiClient
      *
      * @return non-empty-string
      */
-    private function createUrl(string $endpoint, array $params = null): string
+    private function createUrl(string $endpoint, ?array $params = null): string
     {
         $url = "https://{$this->apiHost}/{$endpoint}.json";
 
         if (!empty($params)) {
-            $url .= '?'.http_build_query($params, '', '&', PHP_QUERY_RFC3986);
+            $url .= '?'.http_build_query($params, '', '&', \PHP_QUERY_RFC3986);
         }
 
         return $url;
@@ -131,7 +132,7 @@ final class HttpApiClient implements ApiClient
     {
         $request = $this->requestFactory->createRequest($method, $url);
 
-        if ($body !== null) {
+        if (null !== $body) {
             $request->getBody()->write($body);
         }
 

@@ -55,5 +55,5 @@ interface ApiClient
      * @throws ApiClientError
      * @throws InvalidArgument
      */
-    public function delete(string $endpoint, array $params = null): ResponseInterface;
+    public function delete(string $endpoint, ?array $params = null): ResponseInterface;
 }

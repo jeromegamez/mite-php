@@ -37,19 +37,19 @@ abstract class IntegrationTestCase extends TestCase
         $accountName = trim($_ENV['MITE_ACCOUNT'] ?? 'beste');
         $apiKey = trim($_ENV['MITE_API_KEY'] ?? '');
 
-        if ($accountName === '') {
+        if ('' === $accountName) {
             self::markTestSkipped('Account name not provided');
         }
 
         self::$accountName = $accountName;
 
-        $throwIfNotAbleToReplay = $apiKey === '';
+        $throwIfNotAbleToReplay = '' === $apiKey;
 
         self::$apiClient = self::createVCRApiClient(
             $accountName,
             $apiKey,
             __DIR__.'/../fixtures/vcr',
-            $throwIfNotAbleToReplay
+            $throwIfNotAbleToReplay,
         );
     }
 

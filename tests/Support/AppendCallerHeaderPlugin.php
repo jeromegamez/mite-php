@@ -36,11 +36,12 @@ final class AppendCallerHeaderPlugin implements Plugin
 
             if (str_contains($class, $this->namespace)) {
                 $method = $class.'::'.$function;
+
                 break;
             }
         }
 
-        if ($method === '') {
+        if ('' === $method) {
             return $next($request);
         }
 

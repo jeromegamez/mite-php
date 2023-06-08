@@ -7,14 +7,17 @@ namespace Gamez\Mite\Tests\Integration\SimpleApi;
 use Gamez\Mite\Tests\Integration\SimpleApiTestCase;
 
 /**
- * @covers \Gamez\Mite\SimpleApi
- * @covers \Gamez\Mite\Api\HttpApiClient
- *
  * @internal
+ *
+ * @covers \Gamez\Mite\Api\HttpApiClient
+ * @covers \Gamez\Mite\SimpleApi
  */
 final class AccountTest extends SimpleApiTestCase
 {
-    public function testItRetrievesTheAccount(): void
+    /**
+     * @test
+     */
+    public function it_retrieves_the_account(): void
     {
         $account = self::$api->getAccount();
 
@@ -23,10 +26,13 @@ final class AccountTest extends SimpleApiTestCase
             $account,
         );
 
-        $this->assertSame(self::$accountName, $account['name']);
+        self::assertSame(self::$accountName, $account['name']);
     }
 
-    public function testItRetrievesTheCurrentUser(): void
+    /**
+     * @test
+     */
+    public function it_retrieves_the_current_user(): void
     {
         $user = self::$api->getMyself();
 

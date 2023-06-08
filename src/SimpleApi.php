@@ -245,7 +245,7 @@ final class SimpleApi
      */
     public function getGroupedTimeEntries(array|string $groupBy, ?array $params = null): array
     {
-        if (is_array($groupBy)) {
+        if (\is_array($groupBy)) {
             $groupBy = implode(',', $groupBy);
         }
 
@@ -331,9 +331,7 @@ final class SimpleApi
         $data = JSON::decode((string) $response->getBody(), true);
 
         /** @var array<non-empty-string, mixed> $result */
-        $result = array_column($data, $column);
-
-        return $result;
+        return array_column($data, $column);
     }
 
     /**
@@ -344,12 +342,11 @@ final class SimpleApi
     private function getSingle(string $endpoint): array
     {
         $response = $this->client->get($endpoint);
+
         /** @var array<non-empty-string|mixed> $data */
         $data = JSON::decode((string) $response->getBody(), true);
 
         /** @var array<non-empty-string|mixed> $data */
-        $current = current($data);
-
-        return $current;
+        return current($data);
     }
 }

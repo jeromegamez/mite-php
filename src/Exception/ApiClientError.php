@@ -7,10 +7,8 @@ namespace Gamez\Mite\Exception;
 use Beste\Json;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use RuntimeException;
-use Throwable;
 
-final class ApiClientError extends RuntimeException implements MiteException
+final class ApiClientError extends \RuntimeException implements MiteException
 {
     private RequestInterface $request;
     private ?ResponseInterface $response;
@@ -20,11 +18,11 @@ final class ApiClientError extends RuntimeException implements MiteException
         ?ResponseInterface $response,
         ?string $message = null,
         ?int $code = null,
-        ?Throwable $previous = null)
-    {
+        ?\Throwable $previous = null,
+    ) {
         $this->request = $request;
         $this->response = $response;
-        $code = $code ?? 0;
+        $code ??= 0;
 
         if ($response) {
             $message = $message ?: $response->getReasonPhrase();
@@ -39,17 +37,18 @@ final class ApiClientError extends RuntimeException implements MiteException
         parent::__construct($message, $code, $previous);
     }
 
-    public static function fromRequestAndReason(RequestInterface $request, string $reason, Throwable $previous = null): self
+    public static function fromRequestAndReason(RequestInterface $request, string $reason, ?\Throwable $previous = null): self
     {
         return new self($request, null, $reason, null, $previous);
     }
 
-    public static function fromRequestAndResponse(RequestInterface $request, ResponseInterface $response, Throwable $previous = null): self
+    public static function fromRequestAndResponse(RequestInterface $request, ResponseInterface $response, ?\Throwable $previous = null): self
     {
         $code = $response->getStatusCode();
+
         try {
             $data = JSON::decode((string) $response->getBody(), true);
-        } catch (Throwable $e) {
+        } catch (\Throwable $e) {
             $data = [];
         }
         $message = $data['error'] ?? null;
