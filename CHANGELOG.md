@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+* Removed `psr/http-message` as a direct dependency.
+
 ## 3.0.0 - 2023-02-21
 
 * Dropped support for PHP <8.1
