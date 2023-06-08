@@ -57,18 +57,18 @@
         }
     },
     "scripts": {
-        "cs": [
-            "vendor/bin/php-cs-fixer fix --diff"
-        ],
-        "lint": [
-            "XDEBUG_MODE=off vendor/bin/phpstan"
-        ],
-        "test": [
-            "vendor/bin/phpunit --testdox"
-        ],
+        "analyse": "vendor/bin/phpstan analyse",
+        "analyze": "@analyse",
+        "cs-fix": "vendor/bin/php-cs-fixer fix --diff --verbose",
+        "test": "vendor/bin/phpunit --testdox",
         "test-coverage": [
             "Composer\\Config::disableProcessTimeout",
-            "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text --coverage-html=.build/coverage"
+            "XDEBUG_MODE=coverage vendor/bin/phpunit --testdox --coverage-html=.build/coverage"
+        ],
+        "check": [
+            "@cs-fix",
+            "@analyse",
+            "@test"
         ]
     }
 }
