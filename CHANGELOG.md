@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 3.1.0 - 2023-06-08
+
 * Removed `psr/http-message` as a direct dependency.
 * Fixed return type annotations for endpoints returning lists 
 
