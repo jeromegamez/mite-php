@@ -12,8 +12,8 @@ use Http\Client\Plugin\Vcr\NamingStrategy\PathNamingStrategy;
 use Http\Client\Plugin\Vcr\Recorder\FilesystemRecorder;
 use Http\Client\Plugin\Vcr\RecordPlugin;
 use Http\Client\Plugin\Vcr\ReplayPlugin;
-use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
@@ -82,7 +82,7 @@ abstract class IntegrationTestCase extends TestCase
         $replay = new ReplayPlugin($namingStrategy, $recorder, $throwIfNotAbleToReplay);
 
         return new PluginClient(
-            HttpClientDiscovery::find(),
+            Psr18ClientDiscovery::find(),
             [$appendHeader, $replay, $record],
         );
     }
