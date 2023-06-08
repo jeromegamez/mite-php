@@ -38,7 +38,7 @@ final class SimpleApi
     /**
      * @param array<non-empty-string, mixed> $params
      *
-     * @return array<non-empty-string, mixed>
+     * @return list<array<non-empty-string, mixed>>
      */
     public function getActiveCustomers(?array $params = null): array
     {
@@ -48,7 +48,7 @@ final class SimpleApi
     /**
      * @param array<non-empty-string, mixed> $params
      *
-     * @return array<non-empty-string, mixed>
+     * @return list<array<non-empty-string, mixed>>
      */
     public function getArchivedCustomers(?array $params = null): array
     {
@@ -102,7 +102,7 @@ final class SimpleApi
     /**
      * @param array<non-empty-string, mixed>|null $params
      *
-     * @return array<non-empty-string, mixed>
+     * @return list<array<non-empty-string, mixed>>
      */
     public function getActiveProjects(?array $params = null): array
     {
@@ -112,7 +112,7 @@ final class SimpleApi
     /**
      * @param array<non-empty-string, mixed>|null $params
      *
-     * @return array<non-empty-string, mixed>
+     * @return list<array<non-empty-string, mixed>>
      */
     public function getArchivedProjects(?array $params = null): array
     {
@@ -166,7 +166,7 @@ final class SimpleApi
     /**
      * @param array<non-empty-string, mixed>|null $params
      *
-     * @return array<non-empty-string, mixed>
+     * @return list<array<non-empty-string, mixed>>
      */
     public function getActiveServices(?array $params = null): array
     {
@@ -176,7 +176,7 @@ final class SimpleApi
     /**
      * @param array<non-empty-string, mixed> $params
      *
-     * @return array<non-empty-string, mixed>
+     * @return list<array<non-empty-string, mixed>>
      */
     public function getArchivedServices(?array $params = null): array
     {
@@ -230,7 +230,7 @@ final class SimpleApi
     /**
      * @param array<non-empty-string, mixed> $params
      *
-     * @return array<non-empty-string, mixed>
+     * @return list<array<non-empty-string, mixed>>
      */
     public function getTimeEntries(?array $params = null): array
     {
@@ -241,7 +241,7 @@ final class SimpleApi
      * @param string|string[] $groupBy
      * @param array<non-empty-string, mixed>|null $params
      *
-     * @return array<non-empty-string, mixed>
+     * @return list<array<non-empty-string, mixed>>
      */
     public function getGroupedTimeEntries(array|string $groupBy, ?array $params = null): array
     {
@@ -301,7 +301,7 @@ final class SimpleApi
     /**
      * @param array<non-empty-string, mixed> $params
      *
-     * @return array<non-empty-string, mixed>
+     * @return list<array<non-empty-string, mixed>>
      */
     public function getActiveUsers(?array $params = null): array
     {
@@ -311,7 +311,7 @@ final class SimpleApi
     /**
      * @param array<non-empty-string, mixed> $params
      *
-     * @return array<non-empty-string, mixed>
+     * @return list<array<non-empty-string, mixed>>
      */
     public function getArchivedUsers(?array $params = null): array
     {
@@ -322,7 +322,7 @@ final class SimpleApi
      * @param non-empty-string $endpoint
      * @param array<non-empty-string, mixed>|null $params
      *
-     * @return array<non-empty-string, mixed>
+     * @return list<array<non-empty-string, mixed>>
      */
     private function get(string $endpoint, string $column, ?array $params = null): array
     {
@@ -330,7 +330,6 @@ final class SimpleApi
 
         $data = JSON::decode((string) $response->getBody(), true);
 
-        /** @var array<non-empty-string, mixed> $result */
         return array_column($data, $column);
     }
 
