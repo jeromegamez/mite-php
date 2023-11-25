@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Gamez\Mite\Api;
 
-use Beste\Json;
 use Gamez\Mite\Exception\ApiClientError;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
@@ -83,10 +82,8 @@ final class HttpApiClient implements ApiClient
 
         $body = null;
 
-        if (null !== $data) {
-            $body = JSON::encode($data);
-            \assert('' !== $body);
-
+        if ($data) {
+            $body = json_encode($data) ?: null;
             $headers['Content-Type'] = 'application/json';
         }
 

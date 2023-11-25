@@ -17,10 +17,9 @@
         }
     ],
     "require": {
-        "php": "~8.1.0|~8.2.0",
+        "php": "~8.1.0|~8.2.0|~8.3.0",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "beste/json": "^1.2",
         "psr/http-client": "^1.0.1",
         "psr/http-client-implementation": "^1.0",
         "psr/http-factory": "^1.0.1",

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Gamez\Mite\Exception;
 
-use Beste\Json;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -47,7 +46,7 @@ final class ApiClientError extends \RuntimeException implements MiteException
         $code = $response->getStatusCode();
 
         try {
-            $data = JSON::decode((string) $response->getBody(), true);
+            $data = json_decode((string) $response->getBody(), true, 512, \JSON_THROW_ON_ERROR);
         } catch (\Throwable $e) {
             $data = [];
         }

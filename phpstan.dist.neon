@@ -5,6 +5,7 @@ parameters:
 		- tests/
 
 	checkUninitializedProperties: true
+	checkGenericClassInNonGenericObjectType: false
 
 	ignoreErrors:
 		-
