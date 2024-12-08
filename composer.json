@@ -28,16 +28,16 @@
         "psr/http-factory-implementation": "^1.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.52.1",
-        "guzzlehttp/guzzle": "^7.8.1",
-        "php-http/guzzle7-adapter": "^1.0",
+        "friendsofphp/php-cs-fixer": "^3.65.0",
+        "guzzlehttp/guzzle": "^7.9.2",
+        "php-http/guzzle7-adapter": "^1.1",
         "php-http/vcr-plugin": "^1.2.3",
         "phpstan/extension-installer": "^1.4.3",
         "phpstan/phpstan": "^2.0.3",
         "phpstan/phpstan-phpunit": "^2.0.1",
-        "phpunit/phpunit": "^10.5.15",
+        "phpunit/phpunit": "^10.5.38",
         "symfony/var-dumper": "^6.4.15 || ^7.2",
-        "vlucas/phpdotenv": "^5.6"
+        "vlucas/phpdotenv": "^5.6.1"
     },
     "autoload": {
         "psr-4": {
