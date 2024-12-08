@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 3.3.0 - 2024-12-09
+
+* Added support for PHP 8.4
 * Added auto-discovery of PSR-17 Factories and PSR-18 HTTP Clients.
 
 ## 3.2.0 - 2024-03-27
