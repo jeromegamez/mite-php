@@ -23,7 +23,7 @@ final class VCRApiClientFactory implements ApiClientFactory
      */
     public function __construct(
         private readonly string $filePath,
-        private readonly bool $throwIfNotAbleToReplay
+        private readonly bool $throwIfNotAbleToReplay,
     ) {}
 
     public function __invoke(string $accountName, string $apiKey): ApiClient
